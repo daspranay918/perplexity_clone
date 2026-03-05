@@ -22,6 +22,7 @@ class HomePage extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: Wrap(
+                    alignment: WrapAlignment.center,
                     children: [
                       Padding(
                         padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
@@ -36,7 +37,7 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
                         child: Text(
-                          "Pro",
+                          "Enterprise",
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.footerGrey,
@@ -46,7 +47,7 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
                         child: Text(
-                          "Pro",
+                          "Store",
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.footerGrey,
@@ -56,7 +57,7 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
                         child: Text(
-                          "Pro",
+                          "Blog",
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.footerGrey,
@@ -66,7 +67,7 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
                         child: Text(
-                          "Pro",
+                          "Careers",
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.footerGrey,
@@ -76,7 +77,7 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
                         child: Text(
-                          "Pro",
+                          "English(English)",
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.footerGrey,
