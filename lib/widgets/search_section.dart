@@ -1,38 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:perplexity_clone/services/chat_web_service.dart';
 import 'package:perplexity_clone/theme/colors.dart';
 import 'package:perplexity_clone/widgets/search_bar_button.dart';
 
-class SearchSection extends StatelessWidget {
-  const SearchSection({super.key});
+class SearchSection extends StatefulWidget {
+  final ChatWebService chatService;
+  final Function(String) onUserMessage;
+  const SearchSection({super.key, required this.chatService, required this.onUserMessage});
+
+  @override
+  State<SearchSection> createState() => _SearchSectionState();
+}
+
+class _SearchSectionState extends State<SearchSection> {
+  final queryController = TextEditingController();
+  @override
+  void dispose() {
+    super.dispose();
+    queryController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Where Knowlage begains", style: GoogleFonts.ibmPlexMono(
-          fontSize: 40,
-          fontWeight:FontWeight.w400,
-          height: 1.2,
-          letterSpacing: -0.5,
-        )),
-        const SizedBox(height: 32,),
+        Text(
+          "Where Knowledge Begains",
+          style: GoogleFonts.ibmPlexMono(
+            fontSize: 40,
+            fontWeight: FontWeight.w400,
+            height: 1.2,
+            letterSpacing: -0.5,
+          ),
+        ),
+        const SizedBox(height: 32),
         Container(
           width: 700,
           decoration: BoxDecoration(
             color: AppColors.searchBar,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: AppColors.searchBarBorder,
-              width: 1.5,
-            )
+            border: Border.all(color: AppColors.searchBarBorder, width: 1.5),
           ),
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: TextField(
+                  controller: queryController,
                   decoration: InputDecoration(
                     hintText: 'Search anything...',
                     hintStyle: TextStyle(
@@ -49,21 +65,37 @@ class SearchSection extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: [
-                    SearchBarButton(icon: Icons.auto_awesome, text: 'Focus',),
+                    SearchBarButton(icon: Icons.auto_awesome, text: 'Focus'),
                     const SizedBox(width: 12),
-                    SearchBarButton(icon: Icons.add_circle_outline, text: 'Attacth',),
+                    SearchBarButton(
+                      icon: Icons.add_circle_outline,
+                      text: 'Attacth',
+                    ),
                     const Spacer(),
-                    Container(
-                      padding: EdgeInsets.all(9),
-                      decoration: BoxDecoration(
-                        color: AppColors.submitButton,
-                        borderRadius: BorderRadius.circular(30),
+                    GestureDetector(
+                      onTap: () {
+                        final query = queryController.text.trim();
+                        if(query.isEmpty) return;
+                          widget.onUserMessage(query);
+                          widget.chatService.clearResponse();
+                          widget.chatService.chat(query);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(9),
+                        decoration: BoxDecoration(
+                          color: AppColors.submitButton,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: const Icon(
+                          Icons.arrow_forward,
+                          color: AppColors.background,
+                          size: 16,
+                        ),
                       ),
-                      child: const Icon(Icons.arrow_forward, color: AppColors.background,size: 16,),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
