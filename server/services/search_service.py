@@ -15,6 +15,8 @@ class SearchService:
         for result in search_results:
             downloaded = trafilatura.fetch_url(result.get("url"))
             content = trafilatura.extract(downloaded, include_comments=False)
+            if not content:
+                continue
 
             results.append({
                 "title": result.get("title", ""),
